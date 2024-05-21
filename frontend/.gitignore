@@ -3,6 +3,7 @@ dist/
 
 # generated types
 .astro/
+package.json.md5
 
 # dependencies
 node_modules/
