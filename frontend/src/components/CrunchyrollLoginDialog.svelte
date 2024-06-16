@@ -2,6 +2,7 @@
 	import { Dialog, Separator, Label } from "bits-ui";
 	import X from "@/icons/X.svelte";
 	import { fade } from "svelte/transition";
+	import VisibleEyeButton from "./VisibleEyeButton.svelte";
 
 	export let open: boolean;
 
@@ -9,23 +10,17 @@
 
 	let email = "";
 	let password = "";
+	let showPassword = false;
 
 	const loginToCrunchyroll = async () => {
 		loading = true;
-		await new Promise((resolve) => setTimeout(resolve, 1000));
+		await LoginToCrunchyCLI;
 		loading = false;
 		open = false;
 	};
 </script>
 
 <Dialog.Root bind:open>
-	<Dialog.Trigger
-		class="inline-flex h-12 items-center
-  justify-center whitespace-nowrap rounded-input bg-dark px-[21px]
-  text-[15px] font-semibold text-background shadow-mini transition-colors hover:bg-dark/95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-98"
-	>
-		New API key
-	</Dialog.Trigger>
 	<Dialog.Portal>
 		<Dialog.Overlay
 			transition={fade}
@@ -41,10 +36,10 @@
 			>
 			<Separator.Root class="-mx-5 mb-6 mt-5 block h-px bg-muted" />
 			<Dialog.Description class="text-sm text-foreground-alt">
-				All your credentials will be saved locally and never shared with an
-				external server.
+				All your credentials will be saved locally and never shared with
+				anywhere except crunchyroll.com.
 			</Dialog.Description>
-			<div class="flex flex-col items-start gap-1 pb-11 pt-7">
+			<div class="flex flex-col items-start gap-1 pt-7">
 				<Label.Root for="email" class="text-sm font-medium">Email</Label.Root>
 				<div class="relative w-full">
 					<input
@@ -62,13 +57,28 @@
 					>Password</Label.Root
 				>
 				<div class="relative w-full">
-					<input
-						id="password"
-						bind:value={password}
-						class="inline-flex h-input w-full items-center rounded-card-sm border border-border-input bg-background px-4 text-sm placeholder:text-foreground-alt/50 hover:border-dark-40 focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-2 focus:ring-offset-background"
-						placeholder="******"
-						type="password"
-						autocomplete="off"
+					{#if showPassword}
+						<input
+							id="password"
+							bind:value={password}
+							class="inline-flex h-input w-full items-center rounded-card-sm border border-border-input bg-background px-4 text-sm placeholder:text-foreground-alt/50 hover:border-dark-40 focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-2 focus:ring-offset-background"
+							placeholder="******"
+							type="text"
+							autocomplete="off"
+						/>
+					{:else}
+						<input
+							id="password"
+							bind:value={password}
+							class="inline-flex h-input w-full items-center rounded-card-sm border border-border-input bg-background px-4 text-sm placeholder:text-foreground-alt/50 hover:border-dark-40 focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-2 focus:ring-offset-background"
+							placeholder="******"
+							type="password"
+							autocomplete="off"
+						/>
+					{/if}
+					<VisibleEyeButton
+						class="absolute top-1/2 -translate-y-1/2 right-3"
+						bind:show={showPassword}
 					/>
 				</div>
 			</div>

@@ -13,3 +13,7 @@ export function Greet(arg1) {
 export function InstallCrunchyCLI() {
   return window['go']['main']['App']['InstallCrunchyCLI']();
 }
+
+export function LoginToCrunchyCLI() {
+  return window['go']['main']['App']['LoginToCrunchyCLI']();
+}

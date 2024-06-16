@@ -6,3 +6,5 @@ export function GetCLIInstalledStatus():Promise<boolean>;
 export function Greet(arg1:string):Promise<string>;
 
 export function InstallCrunchyCLI():Promise<boolean>;
+
+export function LoginToCrunchyCLI():Promise<boolean>;

@@ -86,3 +86,8 @@ func (a *App) InstallCrunchyCLI() bool {
 	// TODO
 	return true
 }
+
+func (a *App) LoginToCrunchyCLI() bool {
+	// TODO
+	return true
+}
